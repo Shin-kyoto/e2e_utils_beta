@@ -1,24 +1,22 @@
 """
-Module for cleaning up the external/universe directory.
+Module for cleaning up the external/core directory.
 """
 import shutil
 from pathlib import Path
 from typing import List
 
-def cleanup_universe(universe_dir: Path, keep_relative: List[str]) -> None:
+def cleanup_core(core_dir: Path, keep_relative: List[str]) -> None:
     """
-    Remove all contents in universe_dir except for the specified subdirectories.
+    Remove all contents in core_dir except for the specified subdirectories.
     Args:
-        universe_dir: Path to the universe directory.
-        keep_relative: List of relative paths (from universe_dir) to keep.
+        core_dir: Path to the core directory.
+        keep_relative: List of relative paths (from core_dir) to keep.
     """
-    # Also keep their parent directories (e.g., 'perception', 'common', 'sensing')
     parent_relative = set(Path(rel).parts[0] for rel in keep_relative)
     keep_toplevel = set(parent_relative)
-    keep_paths = [universe_dir / rel for rel in keep_relative]
+    keep_paths = [core_dir / rel for rel in keep_relative]
 
-    # Remove all top-level items in universe except those in keep_toplevel
-    for item in universe_dir.iterdir():
+    for item in core_dir.iterdir():
         if item.name in keep_toplevel:
             continue
         print(f"Removing {item}")
@@ -27,9 +25,8 @@ def cleanup_universe(universe_dir: Path, keep_relative: List[str]) -> None:
         else:
             item.unlink()
 
-    # For each kept top-level directory, remove subdirectories/files not in keep_paths
     for parent in keep_toplevel:
-        parent_dir = universe_dir / parent
+        parent_dir = core_dir / parent
         if not parent_dir.is_dir():
             continue
         for child in parent_dir.iterdir():
