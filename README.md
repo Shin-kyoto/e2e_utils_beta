@@ -5,22 +5,33 @@
 
 ## e2e_utils_beta Setup Instructions
 
-### 1. Clone the repository
+### 1. Setup environment
+
+- Please follow [this document](https://autowarefoundation.github.io/autoware-documentation/main/installation/autoware/source-installation/#how-to-set-up-a-development-environment) and setup the environment with TensorRT.
 
 ```bash
-git clone https://github.com/AutomotiveAIChallenge/aichallenge-2025.git
-cd aichallenge/workspace/src
+git clone https://github.com/autowarefoundation/autoware.git
+cd autoware
+```
+
+- After execute the blow command, the command asked the questions. Please answer them.
+
+```bash
+./setup-dev-env.sh
+```
+
+### 2. Clone the repository
+
+```bash
 git clone https://github.com/Shin-kyoto/e2e_utils_beta.git
 ```
 
-### 2. Import dependencies
+### 3. Import dependencies
 ```bash
-cd aichallenge/workspace/src/e2e_utils_beta
 sh script/setup.sh
 ```
 
-### 3. Build
+### 4. Build
 ```bash
-cd aichallenge/workspace
 colcon build --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release --packages-up-to autoware_tensorrt_vad
 ```

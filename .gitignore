@@ -1,2 +1,6 @@
-external
+src/external
+install
+build
+log
+*.log
 __pycache__/
