@@ -7,27 +7,20 @@
 
 ### 1. Clone the repository
 
-Please clone this repository in [aichallenge/workspace/src](https://github.com/AutomotiveAIChallenge/aichallenge-2025/tree/main/aichallenge/workspace/src)
-
 ```bash
-cd ~/aichallenge-2025/aichallenge/workspace/src
+git clone https://github.com/AutomotiveAIChallenge/aichallenge-2025.git
+cd aichallenge/workspace/src
 git clone https://github.com/Shin-kyoto/e2e_utils_beta.git
-cd e2e_utils_beta
 ```
 
 ### 2. Import dependencies
 ```bash
-mkdir external
-vcs import external < autoware.repos --shallow
+cd aichallenge/workspace/src/e2e_utils_beta
+sh script/setup.sh
 ```
 
-### 3. Cleanup unnecessary directories
+### 3. Build
 ```bash
-python script/cleanup_external.py
-```
-
-### 4. Build
-```bash
-cd ../../
-colcon build --symlink-install --packages-up-to autoware_tensorrt_vad
+cd aichallenge/workspace
+colcon build --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release --packages-up-to autoware_tensorrt_vad
 ```
