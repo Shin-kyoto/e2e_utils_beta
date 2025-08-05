@@ -1,0 +1,10 @@
+repositories:
+  autoware_internal_msgs:
+    type: git
+    url: https://github.com/autowarefoundation/autoware_internal_msgs.git
+    version: f5524e501775463f508cdb93fe6aec45e1fb4836
+  universe:
+    type: git
+    url: https://github.com/tier4/autoware_universe.git
+    version: feature/e2e-vad
+
