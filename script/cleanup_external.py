@@ -11,7 +11,7 @@ if __name__ == "__main__":
     SCRIPT_DIR = Path(__file__).resolve().parent
 
     # Clean up universe
-    UNIVERSE_DIR = (SCRIPT_DIR / '../external/universe').resolve()
+    UNIVERSE_DIR = (SCRIPT_DIR / '../src/external/universe').resolve()
     KEEP_RELATIVE_UNIVERSE = [
         'perception/autoware_tensorrt_common',
         'perception/autoware_tensorrt_plugins',
@@ -21,7 +21,7 @@ if __name__ == "__main__":
     cleanup_universe(UNIVERSE_DIR, KEEP_RELATIVE_UNIVERSE)
 
     # Clean up core
-    CORE_DIR = (SCRIPT_DIR / '../external/core').resolve()
+    CORE_DIR = (SCRIPT_DIR / '../src/external/core').resolve()
     KEEP_RELATIVE_CORE = [
         'autoware_internal_msgs/autoware_internal_planning_msgs',
         'autoware_msgs/autoware_common_msgs',
@@ -29,5 +29,8 @@ if __name__ == "__main__":
         'autoware_msgs/autoware_planning_msgs',
         'autoware_utils/autoware_utils_uuid',
         'autoware_cmake/autoware_cmake',
+        'auto_msgs/autoware_auto_planning_msgs',
+        'auto_msgs/autoware_auto_geometry_msgs',
+        'auto_msgs/autoware_auto_mapping_msgs',
     ]
     cleanup_core(CORE_DIR, KEEP_RELATIVE_CORE)
