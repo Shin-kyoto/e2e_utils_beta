@@ -44,7 +44,7 @@ Selects the best trajectory from a set of candidate trajectories based on camera
 **Run:**
 ```sh
 # Run the trajectory selector node with custom topics
-python -m trajectory_selector --ros-args -p input_topic:="/planning/vad/trajectories_base" -p output_topic:="/planning/vad/auto/trajectory"
+python -m trajectory_selector --ros-args -p input_topic:="/planning/vad/trajectories_base" -p output_topic:="/planning/ml_planner/auto/trajectory"
 ```
 
 **Topics:**
@@ -65,7 +65,7 @@ Generates complete trajectories from scratch using VLM inference based on camera
 **Run:**
 ```sh
 # Run the VLM planner node with custom output topic
-python vlm_planner_node.py --ros-args -p output_topic:="/planning/vad/auto/trajectory"
+python vlm_planner_node.py --ros-args -p output_topic:="/planning/ml_planner/auto/trajectory"
 ```
 
 **Topics:**

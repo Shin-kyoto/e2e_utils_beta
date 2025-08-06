@@ -87,7 +87,7 @@ export GEMINI_API_KEY="YOUR_API_KEY"
 ```sh
 # Run the VLM planner node with custom output topic
 cd e2e-utils-beta/src/vlm_trajectory_selector
-python vlm_planner_node.py --ros-args -p output_topic:="/planning/vad/auto/trajectory"
+python vlm_planner_node.py --ros-args -p output_topic:="/planning/ml_planner/auto/trajectory"
 ```
 
 ### Tips
@@ -172,5 +172,5 @@ export GEMINI_API_KEY="YOUR_API_KEY"
 
 ```sh
 cd src/vlm_trajectory_selector
-python trajectory_selector.py --ros-args -p input_topic:="/planning/vad/trajectories_base" -p output_topic:="/planning/vad/auto/trajectory"
+python trajectory_selector.py --ros-args -p input_topic:="/planning/vad/trajectories_base" -p output_topic:="/planning/ml_planner/auto/trajectory"
 ```
