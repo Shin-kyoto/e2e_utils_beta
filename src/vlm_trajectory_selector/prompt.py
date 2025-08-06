@@ -8,7 +8,7 @@ def calculate_distance(point1: tuple, point2: tuple) -> float:
 
 def create_trajectory_prompt(last_trajectory_action: str, last_sector: int, current_velocity: float, current_position: tuple, last_commands: list[str]) -> str:
     track_knowledge = f"""Track sectors:
-    1: 30m Starting Straight (speed limit 5 m/s). At the end of the straight in sector 1, there is the white big sign board. Before you pass 28m, you can go straight. After you pass 28m, the blue and white stripe wall became closer, and please slow down with big braking for sector 2. distance from braking point {calculate_distance(current_position, (89616, 43156, 0))} m
+    1: 30m Starting Straight (speed limit 5 m/s). At the end of the straight in sector 1, there is the white big sign board. Before you pass 28m, you can go straight. After you pass 28m, the blue and white stripe wall became closer, and please slow down with big braking for sector 2 while keeping the steering straight. distance from braking point {calculate_distance(current_position, (89616, 43156, 0))} m
     2: R-Hairpin. distance from current position to sector 2 entry point: {calculate_distance(current_position, (89613.9, 43157.7, 0))}m. distance from current position to sector 2 middle point: {calculate_distance(current_position, (89617, 43166, 0))}m. (exapmple: ("time": 1.0,"velocity": 0.1,"x": 0.1,"y": -0.3,"z": 0.0) ("time": 2.0,"velocity": 0.1,"x": 0.12,"y": -0.4,"z": 0.0))
     3: 30m Short Straight
     4: L-Hairpin
