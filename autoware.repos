@@ -26,6 +26,6 @@ repositories:
   # TODO: change to awf/universe
   universe:
     type: git
-    url: https://github.com/Max-Bin/autoware_universe.git
-    version: feat/add_VAD_trt_plugins_suppport
+    url: https://github.com/autowarefoundation/autoware_universe.git
+    version: 38b2ff2a841f09f266647a187c19b29d8ef4e1bb
 
