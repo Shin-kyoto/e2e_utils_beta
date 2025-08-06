@@ -1,9 +1,16 @@
-# VLM Trajectory Selector and Planner
+# VLM Trajectory Selector
 
-This package contains two main components for VLM-based autonomous driving:
+This package provides VLM-based trajectory selection functionality for autonomous driving.
 
-1. **VLM Trajectory Selector**: Selects from candidate trajectories using VLM
-2. **VLM Planner**: Generates complete trajectories using VLM
+## Overview
+
+The VLM Trajectory Selector receives multiple candidate trajectories and uses a Vision Language Model to select the most appropriate one based on the current visual input from the vehicle's camera.
+
+## Features
+
+- Vision-based trajectory selection from candidates
+- Integration with Autoware trajectory messages
+- Real-time decision making
 
 ## Setup
 
@@ -50,50 +57,16 @@ python -m trajectory_selector --ros-args -p input_topic:="/planning/vad/trajecto
 - Publish: 
   - `/output/trajectory` (Trajectory)
 
-### 2. VLM Planner
-
-Generates complete trajectories from scratch using VLM inference based on camera images and vehicle state.
-
-**Files:**
-- `vlm_planner_node.py` - Main ROS 2 node
-- `vlm_planner.py` - VLM trajectory generation logic
-
-**Run:**
-```sh
-# Run the VLM planner node with custom output topic
-python vlm_planner_node.py --ros-args -p output_topic:="/planning/ml_planner/auto/trajectory"
-```
-
-**Topics:**
-- Subscribe:
-  - `/sensing/camera/image_raw` (Image)
-  - `/localization/kinematic_state` (Odometry)
-  - `/localization/acceleration` (AccelWithCovarianceStamped)
-- Publish:
-  - `/output/trajectory` (Trajectory)
-
-**Parameters:**
-- `output_topic`: Output trajectory topic (default: `/output/trajectory`)
-- Inference interval: 2.0 seconds (configurable in code)
-
 ## Features
 
-### VLM Trajectory Selector
 - Real-time trajectory selection from candidates
 - Image-based decision making using Gemini AI
 - Track sector awareness for racing scenarios
 - Rate-limited inference to balance performance and accuracy
 
-### VLM Planner
-- Complete trajectory generation from camera input
-- Vehicle state awareness (velocity, acceleration)
-- 5-second lookahead trajectory planning
-- Smooth trajectory point generation with proper timing
-- Race track sector detection and navigation
-
 ## Track Knowledge
 
-Both components include knowledge of a 13-sector race track:
+This component includes knowledge of a 13-sector race track:
 
 1. Starting Straight
 2. R-Hairpin (with white sign landmark)
@@ -112,22 +85,15 @@ Both components include knowledge of a 13-sector race track:
 ## Architecture
 
 ```
-Camera Image → VLM (Gemini) → Trajectory Decision/Generation → ROS 2 Message → Autoware
+Camera Image → VLM (Gemini) → Trajectory Selection → ROS 2 Message → Autoware
 ```
 
-The VLM components use Google's Gemini 2.5 Flash Lite model for fast inference while maintaining accuracy for autonomous driving decisions.
+The VLM Trajectory Selector uses Google's Gemini 2.5 Flash Lite model for fast inference while maintaining accuracy for autonomous driving decisions.
 
 ## Development
 
-### VLM Selector Architecture
 - `VLMSelector` class handles Gemini API calls and image preprocessing
 - `VlmTrajectorySelectorNode` handles ROS 2 communication and message conversion
-
-### VLM Planner Architecture  
-- `VLMPlanner` class handles trajectory generation using Gemini
-- `VlmPlannerNode` handles ROS 2 communication and vehicle state management
-
-Both components are designed to be modular and can be used independently depending on your autonomous driving pipeline requirements.
 
 
 ## Acknowledgment

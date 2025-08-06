@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "vlm-trajectory-selector"
 version = "0.1.0"
-description = "VLM-based trajectory selector and planner for autonomous driving"
+description = "VLM-based trajectory selector for autonomous driving"
 readme = "README.md"
 requires-python = "~=3.10"
 dependencies = [
@@ -28,5 +28,4 @@ dependencies = [
 [tool.setuptools]
 py-modules = [
     "trajectory_selector",
-    "vlm_planner_node",
 ]
