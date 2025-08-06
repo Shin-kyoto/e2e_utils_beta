@@ -21,6 +21,17 @@ class AwsimTopicPublisher(Node):
     def __init__(self, config_path):
         super().__init__('awsim_topic_publisher')
         
+        # Declare parameters
+        self.declare_parameter('config_path', '')
+        
+        # Get config path from parameter or argument
+        if config_path is None:
+            config_path = self.get_parameter('config_path').get_parameter_value().string_value
+        
+        if not config_path:
+            self.get_logger().error('config_path parameter must be set')
+            raise ValueError('config_path parameter must be set')
+        
         # Load configuration from YAML
         self.config = self.load_config(config_path)
         self.bridge = CvBridge()
@@ -239,7 +250,7 @@ class AwsimTopicPublisher(Node):
 
 def main():
     parser = argparse.ArgumentParser(description='AWSIM Topic Publisher')
-    parser.add_argument('config_path', help='Path to YAML configuration file')
+    parser.add_argument('config_path', nargs='?', help='Path to YAML configuration file')
     args = parser.parse_args()
     
     rclpy.init()
