@@ -33,7 +33,7 @@ sh script/setup.sh
 
 ### 4. Build
 ```bash
-colcon build --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release --packages-up-to autoware_tensorrt_vad
+colcon build --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release --packages-up-to autoware_tensorrt_vad dummy_publisher vlm_dual_planner_launch
 ```
 
 ## Setup AWSIM
@@ -45,10 +45,6 @@ colcon build --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -
 ## Run Sample ROS Node(VLM-Planner)
 
 ### Environment Setup
-
-```sh
-sudo apt-get update && sudo apt-get install -y wmctrl x11-utils gnome-screenshot
-```
 
 ```sh
 cd e2e-utils-beta;source install/setup.bash
@@ -105,7 +101,7 @@ self.model = genai.GenerativeModel("gemini-2.5-flash-lite")
 
 ## Run Sample ROS Node(VAD)
 
-- Use 4 terminals
+- Use 3 terminals
 
 ### Run AWSIM(terminal 1)
 
@@ -115,34 +111,19 @@ self.model = genai.GenerativeModel("gemini-2.5-flash-lite")
 (AIC_DEV) user_name:/aichallenge$ ./run_evaluation.bash 
 ```
 
-### Run VAD ROS Node(terminal 2)
+### Run VAD and dummy publisher (terminal 2)
 
 ```sh
 cd e2e-utils-beta;source install/setup.bash
 ```
 
 ```sh
-ros2 launch autoware_tensorrt_vad vad.launch.xml use_sim_time:=true
+ros2 launch vlm_dual_planner_launch vlm_dual.launch.xml use_sim_time:=true
 ```
 
-### Run dummy publisher(terminal 3)
-
-```sh
-cd e2e-utils-beta;source install/setup.bash
-```
-
-```sh
-cd src/dummy_publisher
-python awsim_topic_pub.py awsim_config_sample.yaml
-```
-
-### Run VLM trajectory selector(terminal 4)
+### Run VLM trajectory selector(terminal 3)
 
 #### Environment Setup
-
-```sh
-sudo apt-get update && sudo apt-get install -y wmctrl x11-utils gnome-screenshot
-```
 
 ```sh
 cd e2e-utils-beta;source install/setup.bash
