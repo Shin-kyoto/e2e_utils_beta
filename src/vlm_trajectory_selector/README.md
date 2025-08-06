@@ -10,10 +10,6 @@ This package contains two main components for VLM-based autonomous driving:
 ### Environment Setup
 
 ```sh
-sudo apt-get update && sudo apt-get install -y wmctrl x11-utils gnome-screenshot
-```
-
-```sh
 uv venv -p python3.10
 ```
 
