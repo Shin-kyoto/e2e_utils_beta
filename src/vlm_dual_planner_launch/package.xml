@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>vlm_dual_planner_launch</name>
+  <version>0.0.0</version>
+  <description>Launch package for VLM dual planner integration</description>
+  <maintainer email="58775300+Shin-kyoto@users.noreply.github.com">Shin-kyoto</maintainer>
+  <license>Apache-2.0</license>
+
+  <depend>dummy_publisher</depend>
+  <depend>autoware_tensorrt_vad</depend>
+  <depend>vlm_trajectory_selector</depend>
+
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_flake8</test_depend>
+  <test_depend>ament_pep257</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

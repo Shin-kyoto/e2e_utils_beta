@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Launch arguments -->
+  <arg name="config_file" default="$(find-pkg-share dummy_publisher)/config/awsim_config_sample.yaml" description="Path to the AWSIM configuration YAML file"/>
+  <arg name="use_sim_time" default="true" description="Whether to use simulation time"/>
+  
+  <!-- Include dummy_publisher launch -->
+  <include file="$(find-pkg-share dummy_publisher)/launch/awsim_topic_pub.launch.py">
+    <arg name="config_file" value="$(var config_file)"/>
+  </include>
+  
+  <!-- Include autoware_tensorrt_vad launch -->
+  <include file="$(find-pkg-share autoware_tensorrt_vad)/launch/vad.launch.xml">
+    <arg name="use_sim_time" value="$(var use_sim_time)"/>
+  </include>
+</launch>
