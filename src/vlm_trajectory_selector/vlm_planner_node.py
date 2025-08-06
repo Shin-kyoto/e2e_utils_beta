@@ -86,7 +86,7 @@ class VlmPlannerNode(Node):
         # VLM推論のレート制限
         self.last_trajectory_action = "S"
         self.last_known_sector = 1
-        self.last_inference_time_sec = time.monotonic()
+        self.last_inference_time_sec = time.monotonic() - 6.0
         self.inference_interval_sec = 5.0  # 推論を実行する間隔 (実時間で5秒)
         self.last_trajectory_msg = None
 

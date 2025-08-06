@@ -35,3 +35,142 @@ sh script/setup.sh
 ```bash
 colcon build --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release --packages-up-to autoware_tensorrt_vad
 ```
+
+## Setup AWSIM
+
+- Please use [this AWSIM branch](https://github.com/Shin-kyoto/aichallenge-2025/tree/exp/0724) to setup.
+  - TODO(Shin-kyoto): make branch in AutomotiveAIChallenge and update the above branch.
+- Please follow [this setting up instruction](https://automotiveaichallenge.github.io/aichallenge-documentation-2025/setup/requirements.html).
+
+## Run Sample ROS Node(VLM-Planner)
+
+### Environment Setup
+
+```sh
+sudo apt-get update && sudo apt-get install -y wmctrl x11-utils gnome-screenshot
+```
+
+```sh
+cd e2e-utils-beta;source install/setup.bash
+```
+
+```sh
+cd src/vlm_trajectory_selector;uv venv -p python3.10
+```
+
+```sh
+source .venv/bin/activate
+```
+
+```sh
+uv pip install .
+```
+
+### Set Gemini API Key
+
+- Please get your Gemini API Key in Google AI Studio following [this instruction](https://ai.google.dev/gemini-api/docs/api-key?hl=ja).
+
+```sh
+export GEMINI_API_KEY="YOUR_API_KEY"
+```
+
+### Run AWSIM
+
+- Please run AWSIM following [this instruction](https://automotiveaichallenge.github.io/aichallenge-documentation-2025/setup/visible-simulation.html)
+
+```sh
+(AIC_DEV) user_name:/aichallenge$ ./run_evaluation.bash 
+```
+
+### Run 
+
+```sh
+# Run the VLM planner node with custom output topic
+cd e2e-utils-beta/src/vlm_trajectory_selector
+python vlm_planner_node.py --ros-args -p output_topic:="/planning/vad/auto/trajectory"
+```
+
+### Tips
+
+- You can change model by updating [the code](./src/vlm_trajectory_selector/vlm_planner.py)
+    - In default, `gemini-2.5-flash-lite` is used.
+
+```python
+self.model = genai.GenerativeModel("gemini-2.5-flash-lite")
+```
+
+- You can update [the prompt](./src/vlm_trajectory_selector/prompt.py).
+
+- [Fine Tuning on vertex AI](https://cloud.google.com/vertex-ai/generative-ai/docs/models/gemini-use-supervised-tuning?hl=ja) may be helpful to improve the trajectory.
+
+## Run Sample ROS Node(VAD)
+
+- Use 4 terminals
+
+### Run AWSIM(terminal 1)
+
+- Please run AWSIM following [this instruction](https://automotiveaichallenge.github.io/aichallenge-documentation-2025/setup/visible-simulation.html)
+
+```sh
+(AIC_DEV) user_name:/aichallenge$ ./run_evaluation.bash 
+```
+
+### Run VAD ROS Node(terminal 2)
+
+```sh
+cd e2e-utils-beta;source install/setup.bash
+```
+
+```sh
+ros2 launch autoware_tensorrt_vad vad.launch.xml use_sim_time:=true
+```
+
+### Run dummy publisher(terminal 3)
+
+```sh
+cd e2e-utils-beta;source install/setup.bash
+```
+
+```sh
+cd src/dummy_publisher
+python awsim_topic_pub.py awsim_config_sample.yaml
+```
+
+### Run VLM trajectory selector(terminal 4)
+
+#### Environment Setup
+
+```sh
+sudo apt-get update && sudo apt-get install -y wmctrl x11-utils gnome-screenshot
+```
+
+```sh
+cd e2e-utils-beta;source install/setup.bash
+```
+
+```sh
+cd src/vlm_trajectory_selector;uv venv -p python3.10
+```
+
+```sh
+source .venv/bin/activate
+```
+
+```sh
+uv pip install .
+```
+
+#### Set Gemini API Key
+
+- Please get your Gemini API Key in Google AI Studio following [this instruction](https://ai.google.dev/gemini-api/docs/api-key?hl=ja).
+
+```sh
+export GEMINI_API_KEY="YOUR_API_KEY"
+```
+
+#### Run trajectory selector
+
+```sh
+cd src/vlm_trajectory_selector
+python trajectory_selector.py --ros-args -p input_topic:="/planning/vad/trajectories_base" -p output_topic:="/planning/vad/auto/trajectory"
+```
