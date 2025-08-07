@@ -46,12 +46,14 @@ colcon build --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -
 
 ### Environment Setup
 
+- Please install `uv` by following [this document](https://docs.astral.sh/uv/getting-started/installation/).
+
 ```sh
 cd e2e-utils-beta;source install/setup.bash
 ```
 
 ```sh
-cd src/vlm_trajectory_selector;uv venv -p python3.10
+cd src/vlm_planner;uv venv -p python3.10
 ```
 
 ```sh
@@ -82,7 +84,7 @@ export GEMINI_API_KEY="YOUR_API_KEY"
 
 ```sh
 # Run the VLM planner node with custom output topic
-cd e2e-utils-beta/src/vlm_trajectory_selector
+cd e2e-utils-beta/src/vlm_planner
 python vlm_planner_node.py --ros-args -p output_topic:="/planning/ml_planner/auto/trajectory"
 ```
 
