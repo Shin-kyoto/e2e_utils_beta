@@ -9,7 +9,6 @@
 
   <depend>dummy_publisher</depend>
   <depend>autoware_tensorrt_vad</depend>
-  <depend>vlm_trajectory_selector</depend>
 
   <test_depend>ament_copyright</test_depend>
   <test_depend>ament_flake8</test_depend>
