@@ -33,7 +33,7 @@ sh script/setup.sh
 
 ### 4. Build
 ```bash
-colcon build --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release --packages-up-to autoware_tensorrt_vad dummy_publisher vad_aic_launch
+colcon build --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release --packages-up-to vad_aic_launch autoware_auto_planning_msgs
 ```
 
 ## Setup AWSIM
