@@ -21,7 +21,7 @@ The VLM Dual Planner Launch package integrates the following components:
 ### Basic Launch
 
 ```bash
-ros2 launch vlm_dual_planner_launch vlm_dual.launch.xml use_sim_time:=true
+ros2 launch vad_aic_launch vad_aic.launch.xml use_sim_time:=true
 ```
 
 ### Available Arguments
@@ -34,7 +34,7 @@ ros2 launch vlm_dual_planner_launch vlm_dual.launch.xml use_sim_time:=true
 ## Build
 
 ```bash
-colcon build --symlink-install --packages-up-to vlm_dual_planner_launch
+colcon build --symlink-install --packages-up-to vad_aic_launch
 source install/setup.bash
 ```
 
@@ -42,10 +42,10 @@ source install/setup.bash
 
 Check available arguments:
 ```bash
-ros2 launch vlm_dual_planner_launch vlm_dual.launch.xml --show-args
+ros2 launch vad_aic_launch vad_aic.launch.xml --show-args
 ```
 
 Print launch description without running:
 ```bash
-ros2 launch vlm_dual_planner_launch vlm_dual.launch.xml --print-description
+ros2 launch vad_aic_launch vad_aic.launch.xml --print-description
 ```

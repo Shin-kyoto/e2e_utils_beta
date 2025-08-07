@@ -33,7 +33,7 @@ sh script/setup.sh
 
 ### 4. Build
 ```bash
-colcon build --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release --packages-up-to autoware_tensorrt_vad dummy_publisher vlm_dual_planner_launch
+colcon build --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -DCMAKE_BUILD_TYPE=Release --packages-up-to autoware_tensorrt_vad dummy_publisher vad_aic_launch
 ```
 
 ## Setup AWSIM
@@ -118,7 +118,7 @@ cd e2e-utils-beta;source install/setup.bash
 ```
 
 ```sh
-ros2 launch vlm_dual_planner_launch vlm_dual.launch.xml use_sim_time:=true
+ros2 launch vad_aic_launch vad_aic.launch.xml use_sim_time:=true
 ```
 
 ### Run VLM trajectory selector(terminal 3)
