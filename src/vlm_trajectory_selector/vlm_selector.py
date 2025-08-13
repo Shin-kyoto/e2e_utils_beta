@@ -4,9 +4,8 @@ import google.generativeai as genai
 import os
 import time
 import json
-import math
 from PIL import Image
-from enum import Enum, auto
+from enum import Enum
 import typing_extensions as typing
 
 class VLMCommand(Enum):
@@ -15,20 +14,20 @@ class VLMCommand(Enum):
     GO_STRAIGHT = "S"
     NONE = "N"
 
-# VLMの応答に現在セクションを追加
+# Add current sector to VLM response
 class VlmResponse(typing.TypedDict):
     action: str
     reason: str
     current_sector: int
 
 class ControlCommand(typing.TypedDict):
-    """Geminiに渡すレスポンススキーマ"""
+    """Response schema passed to Gemini"""
     command: str
     reason: str
 
 class VLMSelector:
     """
-    画像認識とVLMによる判断を行うクラス
+    Class for image recognition and decision making using VLM
     """
     def __init__(self, logger):
         self.logger = logger
@@ -51,22 +50,22 @@ class VLMSelector:
 
     def _setup_gemini(self):
         """
-        Geminiモデルをセットアップします。
+        Set up the Gemini model.
         """
         api_key = os.getenv("GEMINI_API_KEY")
         if not api_key:
-            self.logger.error("環境変数 'GEMINI_API_KEY' が設定されていません。")
-            raise ValueError("APIキーがありません。")
+            self.logger.error("Environment variable 'GEMINI_API_KEY' is not set.")
+            raise ValueError("API key is missing.")
         genai.configure(api_key=api_key)
         self.model = genai.GenerativeModel("gemini-2.5-flash-lite")
         self.logger.info("VLMSelector: Gemini model initialized successfully.")
 
     def _preprocess_image(self, image: Image) -> Image:
         """
-        画像をクロップ、リサイズします。
+        Crop and resize the image.
         """
         pil_image = image.copy()
-        # 認識範囲を調整
+        # Adjust recognition area
         w, h = pil_image.size
         crop_box = (0, h // 2 - 200, w, h // 2 + 200)
         pil_image = pil_image.crop(crop_box)
@@ -75,7 +74,7 @@ class VLMSelector:
 
     def infer(self, image: Image, last_action: VLMCommand, last_sector: int) -> VLMCommand:
         """
-        与えられた画像を元に、VLMで進むべき方向を推論します。
+        Infer the direction to proceed using VLM based on the given image.
         """
         if self.model is None:
             self.logger.warn("VLM model is not ready.")
@@ -111,7 +110,7 @@ class VLMSelector:
             action_str = response_dict.get("action")
             current_sector = response_dict.get("current_sector", last_sector)
 
-            # 文字列からEnumに変換して返す
+            # Convert string to Enum and return
             action_map = {
                 "L": VLMCommand.TURN_LEFT,
                 "R": VLMCommand.TURN_RIGHT,

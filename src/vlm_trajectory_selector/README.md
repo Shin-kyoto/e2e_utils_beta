@@ -57,13 +57,6 @@ python -m trajectory_selector --ros-args -p input_topic:="/planning/vad/trajecto
 - Publish: 
   - `/output/trajectory` (Trajectory)
 
-## Features
-
-- Real-time trajectory selection from candidates
-- Image-based decision making using Gemini AI
-- Track sector awareness for racing scenarios
-- Rate-limited inference to balance performance and accuracy
-
 ## Track Knowledge
 
 This component includes knowledge of a 13-sector race track:
