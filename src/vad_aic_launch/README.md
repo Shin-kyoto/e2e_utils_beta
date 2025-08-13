@@ -1,24 +1,23 @@
-# VLM Dual Planner Launch
+# VAD AIC Launch
 
-This package provides integrated launch files for VLM-based dual planning system that combines AWSIM dummy publisher and TensorRT VAD (Vector Autoregressive Decoder) for autonomous driving.
+This package provides integrated launch files for VAD planner that combines AWSIM dummy publisher and TensorRT VAD for autonomous driving.
 
 ## Overview
 
-The VLM Dual Planner Launch package integrates the following components:
-- **dummy_publisher**: AWSIM topic publisher for camera and TF data simulation
-- **autoware_tensorrt_vad**: TensorRT-accelerated VAD for trajectory planning
+The VAD AIC Launch package integrates the following components:
+- **autoware_tensorrt_vad**: VAD for trajectory planning
+- **dummy_publisher**: dummy camera and tf topic publisher for VAD
 
-## Features
+## Build
 
-- Single launch file for integrated system startup
-- Configurable simulation parameters
-- Support for both simulation and real-time modes
-- Camera data simulation with multi-camera setup
-- TF static publishing for sensor calibration
+```bash
+colcon build --symlink-install --packages-up-to vad_aic_launch
+source install/setup.bash
+```
 
 ## Usage
 
-### Basic Launch
+### Launch
 
 ```bash
 ros2 launch vad_aic_launch vad_aic.launch.xml use_sim_time:=true
@@ -28,24 +27,9 @@ ros2 launch vad_aic_launch vad_aic.launch.xml use_sim_time:=true
 
 | Argument | Default | Description |
 |----------|---------|-------------|
-| `use_sim_time` | `true` | Whether to use simulation time |
-
-
-## Build
-
-```bash
-colcon build --symlink-install --packages-up-to vad_aic_launch
-source install/setup.bash
-```
-
-## Testing
+| `use_sim_time` | `true` | Whether to use simulated time |
 
 Check available arguments:
 ```bash
 ros2 launch vad_aic_launch vad_aic.launch.xml --show-args
-```
-
-Print launch description without running:
-```bash
-ros2 launch vad_aic_launch vad_aic.launch.xml --print-description
 ```
