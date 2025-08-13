@@ -36,7 +36,7 @@ class AwsimTopicPublisher(Node):
         self.config = self.load_config(config_path)
         self.bridge = CvBridge()
         
-        # Setup QoS profiles based on C++ implementation
+        # Setup QoS profiles
         self.sensor_qos = QoSProfile(
             depth=1,
             reliability=ReliabilityPolicy.BEST_EFFORT
