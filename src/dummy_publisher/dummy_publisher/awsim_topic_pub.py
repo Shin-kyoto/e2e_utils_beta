@@ -120,8 +120,8 @@ class AwsimTopicPublisher(Node):
 
     def camera_callback(self, msg):
         """Callback for camera topic subscription"""
-        # Get current timestamp
-        current_time = self.get_clock().now().to_msg()
+        # Get timestamp from received message
+        current_time = msg.header.stamp
         
         # Publish camera topics
         self.publish_camera_topics(current_time)
