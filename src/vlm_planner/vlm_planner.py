@@ -6,7 +6,6 @@ import os
 import time
 import json
 
-import math
 from PIL import Image
 import typing_extensions as typing
 from prompt import create_trajectory_prompt

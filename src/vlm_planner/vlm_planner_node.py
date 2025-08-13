@@ -4,7 +4,7 @@
 import time
 import rclpy
 from rclpy.node import Node
-from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy, QoSDurabilityPolicy
+from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSHistoryPolicy
 
 from autoware_auto_planning_msgs.msg import Trajectory as OutputTrajectory
 from autoware_auto_planning_msgs.msg import TrajectoryPoint as OutputPoint
