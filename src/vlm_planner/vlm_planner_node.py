@@ -70,8 +70,15 @@ class VlmPlannerNode(Node):
         self.current_odometry = None
         self.current_acceleration = None
 
-        # VLM inference rate limiting
-        self.last_trajectory_action = "S"
+        self.last_trajectory_action = []
+        for i in range(10):
+            self.last_trajectory_action.append({
+                "x": float(i) * 2.5,
+                "y": 0.0,
+                "z": 0.0,
+                "time": float(i)*0.5,
+                "velocity": 5.0
+            })
         self.last_known_sector = 1
         self.last_inference_time_sec = time.monotonic() - 6.0
         self.inference_interval_sec = 5.0  # Inference interval (real-time 5 seconds)
@@ -114,6 +121,7 @@ class VlmPlannerNode(Node):
                 self.last_known_sector = current_sector
                 self.last_inference_time_sec = now_sec
                 trajectory_msg = self.create_trajectory_message(trajectory_points)
+                self.last_trajectory_action = trajectory_points
                 self.last_trajectory_msg = trajectory_msg
                 self.trajectory_publisher.publish(trajectory_msg)
                 self.get_logger().info(f"Published trajectory with {len(trajectory_points)} points")
