@@ -155,11 +155,11 @@ class AwsimTopicPublisher(Node):
         
         return compressed_image_msg
 
-    def create_camera_info_topic(self, topic_name, k_matrix, stamp):
+    def create_camera_info_topic(self, camera_num, k_matrix, stamp):
         """Create camera_info topic"""
         camera_info_msg = CameraInfo()
         camera_info_msg.header.stamp = stamp
-        camera_info_msg.header.frame_id = 'camera_optical_link'
+        camera_info_msg.header.frame_id = f'camera{camera_num}/camera_optical_link'
         
         # Set image dimensions
         camera_info_msg.width = self.config['camera']['image_size']['width']
@@ -234,9 +234,9 @@ class AwsimTopicPublisher(Node):
     def publish_camera_info_topics(self, stamp):
         """Publish camera_info topics"""
         k_matrix = self.config['camera']['k_matrix']
-        
-        for topic_name in self.config['publish']['camera_info_topics']:
-            camera_info_msg = self.create_camera_info_topic(topic_name, k_matrix, stamp)
+
+        for i, topic_name in enumerate(self.config['publish']['camera_info_topics']):
+            camera_info_msg = self.create_camera_info_topic(i, k_matrix, stamp)
             self.camera_info_publishers[topic_name].publish(camera_info_msg)
 
     def publish_tf_static(self, stamp):
