@@ -22,7 +22,7 @@ def create_trajectory_prompt(last_trajectory_action: str, last_sector: int, curr
     12: S-Curve (L->R)
     13: Sweeping Right Corner (leads to main straight)"""
 
-    # コマンド履歴（最大20個）
+    # command logs (maximum 20 commands)
     last_commands_str = ', '.join(last_commands[-20:]) if last_commands else 'None'
 
     prompt = f"""

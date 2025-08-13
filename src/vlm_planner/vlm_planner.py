@@ -9,10 +9,10 @@ import json
 import math
 from PIL import Image
 import typing_extensions as typing
-from prompt import create_trajectory_prompt, initial_position
+from prompt import create_trajectory_prompt
 
 class TrajectoryPoint3D(typing.TypedDict):
-    """Geminiに渡すTrajectoryPointの3D座標情報"""
+    """3D coordinate information of TrajectoryPoint passed to Gemini"""
     x: float
     y: float
     z: float
@@ -20,7 +20,7 @@ class TrajectoryPoint3D(typing.TypedDict):
     velocity: float
 
 class TrajectoryResponse(typing.TypedDict):
-    """Geminiに渡すレスポンススキーマ"""
+    """Response schema passed to Gemini"""
     current_sector: int
     trajectory_points: list[TrajectoryPoint3D]
     reasoning: str
@@ -28,32 +28,32 @@ class TrajectoryResponse(typing.TypedDict):
 
 class VLMPlanner:
     """
-    画像認識とVLMによるtrajectory生成を行うクラス
+    Class for image recognition and trajectory generation using VLM
     """
     def __init__(self, logger):
         self.logger = logger
         self.model = None
-        self.last_commands = []  # VLMが推論したコマンド履歴
+        self.last_commands = []  # History of commands inferred by VLM
         self._setup_gemini()
 
     def _setup_gemini(self):
         """
-        Geminiモデルをセットアップします。
+        Set up the Gemini model.
         """
         api_key = os.getenv("GEMINI_API_KEY")
         if not api_key:
-            self.logger.error("環境変数 'GEMINI_API_KEY' が設定されていません。")
-            raise ValueError("APIキーがありません。")
+            self.logger.error("Environment variable 'GEMINI_API_KEY' is not set.")
+            raise ValueError("API key is missing.")
         genai.configure(api_key=api_key)
         self.model = genai.GenerativeModel("gemini-2.5-flash-lite")
         self.logger.info("VLMPlanner: Gemini model initialized successfully.")
 
     def _preprocess_image(self, image: Image) -> Image:
         """
-        画像をクロップ、リサイズします。
+        Crop and resize the image.
         """
         pil_image = image.copy()
-        # 認識範囲を調整
+        # Adjust recognition area
         w, h = pil_image.size
         crop_box = (0, h // 2 - 200, w, h // 2 + 200)
         pil_image = pil_image.crop(crop_box)
@@ -62,7 +62,7 @@ class VLMPlanner:
 
     def generate_trajectory(self, image: Image, last_trajectory_action: str, last_sector: int, current_velocity: float, current_position: tuple) -> tuple[list, int]:
         """
-        与えられた画像を元に、VLMでtrajectoryを生成します。
+        Generate a trajectory using VLM based on the given image.
         """
         if self.model is None:
             self.logger.warn("VLM model is not ready.")

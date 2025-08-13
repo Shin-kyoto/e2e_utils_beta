@@ -4,16 +4,7 @@ VLM-based trajectory planner for autonomous driving.
 
 ## Overview
 
-The VLM Planner generates complete trajectories from scratch using VLM inference based on camera images and vehicle state. Unlike trajectory selectors that choose from candidates, this planner creates entirely new trajectory paths.
-
-## Features
-
-- Complete trajectory generation from camera input
-- Vehicle state awareness (velocity, acceleration)
-- 5-second lookahead trajectory planning
-- Smooth trajectory point generation with proper timing
-- Race track sector detection and navigation
-- Real-time trajectory publishing
+The VLM Planner generates trajectory using VLM inference based on camera images and vehicle state. Unlike trajectory selectors that choose from candidates, this planner creates entirely new trajectory paths.
 
 ## Setup
 
